@@ -1,0 +1,178 @@
+| data_drivers | CREATE TABLE `data_drivers` (
+  `id` int(6) unsigned NOT NULL AUTO_INCREMENT,
+  `firstname` varchar(30) NOT NULL,
+  `lastname` varchar(30) NOT NULL,
+  `phone_no` varchar(30) DEFAULT NULL,
+  `endr_tanker` varchar(1) DEFAULT NULL,
+  `endr_hazmat` varchar(1) DEFAULT NULL,
+  `twic_card` varchar(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=100014 DEFAULT CHARSET=latin1 |
+
+| data_loads | CREATE TABLE `data_loads` (
+  `id` int(6) unsigned NOT NULL AUTO_INCREMENT,
+  `truck_no` varchar(10) DEFAULT NULL,
+  `trailer_no` varchar(10) DEFAULT NULL,
+  `broker` varchar(50) DEFAULT NULL,
+  `load_number` varchar(30) DEFAULT NULL,
+  `pickup_location` varchar(30) DEFAULT NULL,
+  `pickup_date` date DEFAULT NULL,
+  `pickup_time` varchar(30) DEFAULT NULL,
+  `delivery_location` varchar(30) DEFAULT NULL,
+  `delivery_date` date DEFAULT NULL,
+  `delivery_time` varchar(30) DEFAULT NULL,
+  `weight` int(2) DEFAULT NULL,
+  `dh` int(4) DEFAULT NULL,
+  `miles` int(4) DEFAULT NULL,
+  `rate` decimal(8,2) DEFAULT NULL,
+  `dollar_per_mile` decimal(5,2) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=100008 DEFAULT CHARSET=latin1 |
+
+| data_trailers | CREATE TABLE `data_trailers` (
+  `id` int(6) unsigned NOT NULL AUTO_INCREMENT,
+  `make` varchar(30) DEFAULT NULL,
+  `model` varchar(30) DEFAULT NULL,
+  `length` int(2) DEFAULT NULL,
+  `type` varchar(30) DEFAULT NULL,
+  `trailer_no` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=100011 DEFAULT CHARSET=latin1 |
+
+| data_trucks | CREATE TABLE `data_trucks` (
+  `id` int(6) unsigned NOT NULL AUTO_INCREMENT,
+  `make` varchar(30) DEFAULT NULL,
+  `model` varchar(30) DEFAULT NULL,
+  `engine` varchar(30) DEFAULT NULL,
+  `truck_no` varchar(10) DEFAULT NULL,
+  `last_inspection` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=100014 DEFAULT CHARSET=latin1 |
+
+| rel_driver_truck | CREATE TABLE `rel_driver_truck` (
+  `driver_id` int(6) unsigned DEFAULT NULL,
+  `truck_id` int(6) unsigned DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 |
+
+| rel_truck_trailer | CREATE TABLE `rel_truck_trailer` (
+  `trailer_id` int(6) unsigned DEFAULT NULL,
+  `truck_id` int(6) unsigned DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 |
+
+//i DONT THINK WE NEED THIS ONE
+| truck_status | CREATE TABLE `truck_status` (
+  `driver_fn` varchar(30) DEFAULT NULL,
+  `driver_ln` varchar(30) DEFAULT NULL,
+  `truck_no` varchar(10) DEFAULT NULL,
+  `trailer_no` varchar(10) DEFAULT NULL,
+  `broker` varchar(50) DEFAULT NULL,
+  `load_number` varchar(30) DEFAULT NULL,
+  `pickup_location` varchar(30) DEFAULT NULL,
+  `pickup_date` date DEFAULT NULL,
+  `pickup_time` varchar(30) DEFAULT NULL,
+  `delivery_location` varchar(30) DEFAULT NULL,
+  `delivery_date` date DEFAULT NULL,
+  `delivery_time` varchar(30) DEFAULT NULL,
+  `weight` int(2) DEFAULT NULL,
+  `dh` int(4) DEFAULT NULL,
+  `miles` int(4) DEFAULT NULL,
+  `rate` decimal(8,2) DEFAULT NULL,
+  `dollar_per_mile` decimal(5,2) DEFAULT NULL,
+  `status` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 |
+
+CREATE TABLE `load_status` (
+  `load_id` int(6) unsigned DEFAULT NULL,
+  `load_status` varchar(50) DEFAULT NULL) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+
+mysql> select * from data_drivers;
++--------+-----------+------------+------------+-------------+-------------+-----------+
+| id     | firstname | lastname   | phone_no   | endr_tanker | endr_hazmat | twic_card |
++--------+-----------+------------+------------+-------------+-------------+-----------+
+| 100000 | Razvan    | Lala       | 7739410751 | y           | y           | n         |
+| 100001 | Antonio   | Mendez     | 7085278121 | n           | y           | n         |
+| 100002 | Mihai     | Ene        | 3125604884 | y           | y           | n         |
+| 100003 | Florin    | Tarantino  | 7542349093 | y           | y           | n         |
+| 100004 | Nicu      | Solomes    | 7085436100 | y           | y           | n         |
+| 100005 | Dan       | Lupea      | 9547016478 | n           | n           | n         |
+| 100006 | Iulian    | Larion     | 9546629019 | n           | n           | n         |
+| 100007 | Marius    | Popovici   | 7087178647 | n           | n           | n         |
+| 100008 | Claudio   | Allende    | 4075793480 | n           | n           | n         |
+| 100009 | Rodica    | Andronache | 9546845763 | n           | n           | n         |
+| 100010 | Vali      | Binga      | 7735584055 | n           | n           | n         |
+| 100011 | Mihai     | Vasi       | 9046625505 | n           | n           | n         |
+| 100012 | Maria     | Real       | 7087248133 | n           | n           | n         |
+| 100013 | Adrian    | Ciolacu    | 6304586909 | n           | n           | n         |
++--------+-----------+------------+------------+-------------+-------------+-----------+
+
+
+mysql> select * from data_trucks;
++--------+------+-------+--------+----------+
+| id     | make | model | engine | truck_no |
++--------+------+-------+--------+----------+
+| 100000 |      |       |        | 1720     |
+| 100001 |      |       |        | 14       |
+| 100002 |      |       |        | 3174     |
+| 100003 |      |       |        | 1        |
+| 100004 |      |       |        | 105      |
+| 100006 |      |       |        | 3210     |
+| 100007 |      |       |        | 101      |
+| 100008 |      |       |        | 1724     |
+| 100009 |      |       |        | 102      |
+| 100010 |      |       |        | 1726     |
+| 100011 |      |       |        | 1735     |
+| 100012 |      |       |        | 386      |
+| 100013 |      |       |        | 103      |
++--------+------+-------+--------+----------+
+13 rows in set (0.00 sec)
+
+
+mysql> select * from data_loads;
++--------+----------+------------+-------------------+-------------+-----------------+-------------+-------------+-------------------+---------------+
+---------------+--------+------+-------+---------+-----------------+
+| id     | truck_no | trailer_no | broker            | load_number | pickup_location | pickup_date | pickup_time | delivery_location | delivery_date |
+ delivery_time | weight | dh   | miles | rate    | dollar_per_mile |
++--------+----------+------------+-------------------+-------------+-----------------+-------------+-------------+-------------------+---------------+
+---------------+--------+------+-------+---------+-----------------+
+| 100000 | 1724     | 53104      | TQL               | 118750      | Plainsboro, NJ  | 2015-04-01  | 8-14        | Rochester, NY     | 2015-04-02    |
+ 8-17          |   NULL | NULL |   339 | 1200.00 |            3.53 |
+| 100001 | 1724     | 53104      | TQL               | 408484      | Rochester, NY   | 2015-04-02  | 8-19        | Carol Stream, IL  | 2015-04-06    |
+ 7             |   NULL | NULL |   633 |  970.00 |            1.53 |
+| 100002 | 1720     | 53104      | TQL               | 123456      | Chicago, IL     | 2015-04-15  | 8-14        | Denver, CO        | 2015-04-16    |
+ 8-16          |     25 |   31 |  1000 | 2300.00 |            0.45 |
+| 100004 | 1720     | 53104      | XPO               | 123123213   | Denver, CO      | 2015-04-17  | 9           | Seattle, wa       | 2015-04-20    |
+ 10            |     15 |    0 |  1314 | 2628.00 |            2.00 |
+| 100005 | 1720     | 53104      | XPO               | 556452      | New York, NY    | 2020-03-09  | 10          | Auburn, WA        | 2020-03-11    |
+ 15            |     30 |   15 |  2852 | 5900.00 |            2.06 |
+| 100006 | 1        |            | Integrity Express | 145641      | Newark, NJ      | 2019-04-06  | 12          | Chicago, IL       | 2025-03-16    |
+ 15            |     22 |   15 |   925 | 5300.00 |            5.64 |
+| 100007 | 1        |            | Apex Logistics    | 4488787     | Dallas, TX      | 2021-01-01  | 15          | Austin, TX        | 2027-02-17    |
+ 16            |     25 |   23 |   456 | 4500.00 |            9.39 |
+| 100008 | 1        |            | XPO               | 6666666     | Carteret, NJ    | 2019-03-04  | 15          | Auburn, WA        | 2018-01-01    |
+ 16            |     44 |  150 |  3200 | 7300.00 |            2.18 |
++--------+----------+------------+-------------------+-------------+-----------------+-------------+-------------+-------------------+---------------+
+---------------+--------+------+-------+---------+-----------------+
+8 rows in set (0.00 sec)
+
+
+mysql> select * from data_trailers;
++--------+------+-------+--------+------+------------+
+| id     | make | model | length | type | trailer_no |
++--------+------+-------+--------+------+------------+
+| 100000 |      |       |     53 | dv   | 53104      |
+| 100001 |      |       |     53 | dv   | 53213      |
+| 100002 |      |       |     53 | r    | 3108       |
+| 100003 |      |       |     53 | dv   | 53214      |
+| 100004 |      |       |     53 | dv   | 5376       |
+| 100005 |      |       |     53 | dv   | 324        |
+| 100006 |      |       |     53 | r    | 3261       |
+| 100007 |      |       |     53 | dv   | 53219      |
+| 100008 |      |       |     53 | dv   | 326        |
+| 100009 |      |       |     53 | dv   | 53217      |
+| 100010 |      |       |     53 | dv   | 212125     |
++--------+------+-------+--------+------+------------+
+11 rows in set (0.00 sec)
+

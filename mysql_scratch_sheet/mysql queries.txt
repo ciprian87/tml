@@ -1,0 +1,23 @@
+insert into data_drivers(firstname, lastname, phone_no, truck_no, trailer_no, trailer_type, endr_tanker, endr_hazmat, twic_card) 
+values ('Razvan', 'Lala', '7739410751', '1724','53104','53 foot dry van','y', 'y', '' );
+
+insert into data_loads (truck_no, trailer_no, broker, load_number, pickup_location, pickup_date, pickup_time, delivery_location, delivery_date, delivery_time, miles, rate, dollar_per_mile)
+values ('1724', '53104', 'TQL', '118750', 'Plainsboro, NJ', '2015-04-01', '8-14', 'Rochester, NY', '2015-04-02', '8-17', '339', '1200', '3.53');
+
+insert into data_loads (truck_no, trailer_no, broker, load_number, pickup_location, pickup_date, pickup_time, delivery_location, delivery_date, delivery_time, miles, rate, dollar_per_mile)
+values ('1724', '53104', 'TQL', '408484', 'Rochester, NY', '2015-04-02', '8-19', 'Carol Stream, IL', '2015-04-06', '7', '633', '970', '1.53');
+
+insert into data_drivers(firstname, lastname, phone_no, truck_no, trailer_no, trailer_type, endr_tanker, endr_hazmat, twic_card) 
+values ('Razvan', 'Lala', '7739410751', '1724','53104','53 foot dry van','y', 'y', '' );
+
+insert into truck_status(driver_fn ,driver_ln ,truck_no ,trailer_no ,broker ,load_number ,pickup_location ,pickup_date ,pickup_time, 
+delivery_location ,delivery_date ,delivery_time ,weight ,dh ,miles ,rate ,dollar_per_mile) 
+values ('Razvan', 'Lala', '1724', '','','','', '', '', '', '', '', '', '', '', '', '' );
+
+insert into truck_status(driver_fn ,driver_ln ,truck_no ,trailer_no ,broker ,load_number ,pickup_location ,pickup_date ,pickup_time, 
+delivery_location ,delivery_date ,delivery_time ,weight ,dh ,miles ,rate ,dollar_per_mile) 
+values ('Adrian', 'Ciolacu', '103', '','','','', '', '', '', '', '', '', '', '', '', '' );
+
+insert into data_trucks(make, model, engine, truck_no, last_inspection) values ('', '', '', '1720', '');
+
+select * from data_trucks A left outer join rel_truck_trailer B on A.id=B.truck_id left join data_trailers C on B.trailer_id = C.id where A.truck_no=1720;

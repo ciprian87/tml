@@ -1,0 +1,79 @@
+<?php
+//=====================================================================
+//WRITER:		Ciprian Robu
+//DATE:			04/09/15
+//PURPOSE:		Script that updates truck info in DB
+//COMMENTS:		I think this one is done
+//=====================================================================
+
+$servername = "localhost";
+$username = "triplemadmin";
+$password = "triplem1234";
+$dbname = "triplemlogistics";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
+echo "Connected successfully";
+
+$make 		= $conn->real_escape_string(trim($_GET['make']));
+$model 		= $conn->real_escape_string(trim($_GET['model']));
+$engine 	= $conn->real_escape_string(trim($_GET['engine']));
+$truck_no 	= $conn->real_escape_string(trim($_GET['truck_no']));
+$driver_id 	= $conn->real_escape_string(trim($_GET['driver_id']));
+$truck_id	= $conn->real_escape_string(trim($_GET['truck_id']));
+
+echo "$make $model $engine $truck_no $driver_id $truck_id";
+
+//if empty fields return without adding anything to DB
+if (strlen($truck_no)<1) {
+	$conn->close();
+	echo "Blank fields";
+	header("Location: ..\index.php?navigation=truck_edit&truck_id=$truck_id");
+} else {
+		$sql = "update data_trucks set
+					make='$make', 
+					model='$model', 
+					engine='$engine', 
+					truck_no='$truck_no'
+					where id='$truck_id';";
+		if ($conn->query($sql) === TRUE) {
+			echo "New record created successfully";
+		} else {
+			echo "Error: " . $sql . "<br>" . $conn->error;
+		}
+		
+		$sql = "select driver_id from rel_driver_truck where truck_id='$truck_id'";
+		$result = $conn->query($sql);
+		$tmp_counter = 0;
+		foreach ($result as $row) {
+			$tmp_counter++;
+		}
+		if ($tmp_counter>0) {
+			$sql = "UPDATE rel_driver_truck SET truck_id='$truck_id' WHERE driver_id='$driver_id';";
+			if ($conn->query($sql) === TRUE) {
+				echo "New record created successfully";
+			} else {
+				echo "Error: " . $sql . "<br>" . $conn->error;
+			}
+		} else {
+			$sql = "INSERT INTO rel_driver_truck(driver_id, truck_id) VALUES('$driver_id', '$truck_id');";
+			if ($conn->query($sql) === TRUE) {
+				echo "New record created successfully";
+			} else {
+				echo "Error: " . $sql . "<br>" . $conn->error;
+			}
+		}
+		
+		//Close the connection
+		$conn->close();
+		echo "Connection terminated successfully!";
+		header("Location: ..\index.php?navigation=truck_view&truck_id=$truck_id");
+	}
+
+
+?>
